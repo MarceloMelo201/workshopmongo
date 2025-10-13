@@ -2,14 +2,14 @@ package com.marcelomelo.workshopmongo.domain.entities;
 
 
 import lombok.*;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
-import java.util.UUID;
 
 
-@Document(collation = "user_entity")
+@Document(collection = "user_entity")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -18,7 +18,7 @@ import java.util.UUID;
 public class UserEntity {
 
     @Id
-    private UUID idUSer;
+    private ObjectId idUSer;
     private String name;
     private String email;
 
