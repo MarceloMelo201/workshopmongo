@@ -2,6 +2,7 @@ package com.marcelomelo.workshopmongo.service;
 
 import com.marcelomelo.workshopmongo.domain.entities.UserEntity;
 import com.marcelomelo.workshopmongo.dtos.UserCreateDTO;
+import com.marcelomelo.workshopmongo.mapper.UserMapper;
 import com.marcelomelo.workshopmongo.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +15,11 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    private UserMapper userMapper;
 
     public UserEntity createUser(UserCreateDTO dto){
-        UserEntity user = UserEntity
-                .builder()
-                .name(dto.name())
-                .email(dto.email())
-                .build();
-
+        if(userRepository.existsByEmail(dto.email())) throw new RuntimeException();
+        UserEntity user = userMapper.toEntity(dto);
         return userRepository.save(user);
     }
 
