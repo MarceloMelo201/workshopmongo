@@ -1,8 +1,8 @@
 package com.marcelomelo.workshopmongo.service;
 
 import com.marcelomelo.workshopmongo.domain.entities.UserEntity;
-import com.marcelomelo.workshopmongo.dtos.UserCreateDTO;
-import com.marcelomelo.workshopmongo.dtos.UserResponseDTO;
+import com.marcelomelo.workshopmongo.dtos.user.UserCreateDTO;
+import com.marcelomelo.workshopmongo.dtos.user.UserResponseDTO;
 import com.marcelomelo.workshopmongo.exception.UserNotFound;
 import com.marcelomelo.workshopmongo.mapper.UserMapper;
 import com.marcelomelo.workshopmongo.repository.UserRepository;

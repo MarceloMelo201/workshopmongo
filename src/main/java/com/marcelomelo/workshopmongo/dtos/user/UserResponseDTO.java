@@ -1,4 +1,4 @@
-package com.marcelomelo.workshopmongo.dtos;
+package com.marcelomelo.workshopmongo.dtos.user;
 
 import lombok.Builder;
 import org.bson.types.ObjectId;
