@@ -2,6 +2,7 @@ package com.marcelomelo.workshopmongo.mapper;
 
 import com.marcelomelo.workshopmongo.domain.entities.UserEntity;
 import com.marcelomelo.workshopmongo.dtos.UserCreateDTO;
+import com.marcelomelo.workshopmongo.dtos.UserResponseDTO;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,6 +13,15 @@ public class UserMapper {
                 .builder()
                 .name(dto.name())
                 .email(dto.email())
+                .build();
+    }
+
+    public UserResponseDTO toResponse(UserEntity entity){
+        return UserResponseDTO
+                .builder()
+                .idUser(entity.getIdUSer())
+                .name(entity.getName())
+                .email(entity.getEmail())
                 .build();
     }
 }

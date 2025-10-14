@@ -2,6 +2,7 @@ package com.marcelomelo.workshopmongo.service;
 
 import com.marcelomelo.workshopmongo.domain.entities.UserEntity;
 import com.marcelomelo.workshopmongo.dtos.UserCreateDTO;
+import com.marcelomelo.workshopmongo.dtos.UserResponseDTO;
 import com.marcelomelo.workshopmongo.mapper.UserMapper;
 import com.marcelomelo.workshopmongo.repository.UserRepository;
 import org.bson.types.ObjectId;
@@ -17,10 +18,10 @@ public class UserService {
     private UserRepository userRepository;
     private UserMapper userMapper;
 
-    public UserEntity createUser(UserCreateDTO dto){
+    public UserResponseDTO createUser(UserCreateDTO dto){
         if(userRepository.existsByEmail(dto.email())) throw new RuntimeException();
         UserEntity user = userMapper.toEntity(dto);
-        return userRepository.save(user);
+        return userMapper.toResponse(userRepository.save(user));
     }
 
 
@@ -29,18 +30,18 @@ public class UserService {
     }
 
 
-    public UserEntity findById(ObjectId idUSer){
-        return userRepository.findById(idUSer).orElseThrow();
+    public UserResponseDTO findById(ObjectId idUSer){
+        return userMapper.toResponse(userRepository.findById(idUSer).orElseThrow());
     }
 
 
-    public UserEntity updateById(ObjectId id, UserCreateDTO dto){
+    public UserResponseDTO updateById(ObjectId id, UserCreateDTO dto){
         UserEntity user = userRepository.findById(id).orElseThrow();
         if(userRepository.existsByEmail(dto.email())) throw new RuntimeException();
 
         user.setName(dto.name());
         user.setEmail(dto.email());
-        return userRepository.save(user);
+        return userMapper.toResponse(userRepository.save(user));
     }
 
 
