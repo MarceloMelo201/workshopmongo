@@ -27,6 +27,7 @@ public class UserController {
     public ResponseEntity<List<UserEntity>> findAll(){
         List<UserEntity> list = userService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(list);
-
     }
+
+
 }
