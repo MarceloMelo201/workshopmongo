@@ -21,7 +21,7 @@ public class PostEntity {
     @Id
     private ObjectId idPost;
 
-    private ObjectId authorId;
+    private UserEntity user;
     private LocalDate date;
     private String title;
     private String body;

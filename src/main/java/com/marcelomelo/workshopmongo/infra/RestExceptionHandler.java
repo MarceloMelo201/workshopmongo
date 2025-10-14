@@ -1,5 +1,6 @@
 package com.marcelomelo.workshopmongo.infra;
 
+import com.marcelomelo.workshopmongo.exception.PostNotFound;
 import com.marcelomelo.workshopmongo.exception.UserNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import java.util.List;
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(UserNotFound.class)
+    @ExceptionHandler({UserNotFound.class, PostNotFound.class})
     private ResponseEntity<RestApiError> notFoundHandler(RuntimeException exception){
         RestApiError restApiError = RestApiError
                 .builder()

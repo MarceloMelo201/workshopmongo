@@ -1,8 +1,6 @@
 package com.marcelomelo.workshopmongo.mapper;
 
 import com.marcelomelo.workshopmongo.domain.entities.PostEntity;
-import com.marcelomelo.workshopmongo.domain.entities.UserEntity;
-import com.marcelomelo.workshopmongo.dtos.comment.AuthorDTO;
 import com.marcelomelo.workshopmongo.dtos.post.PostResponseDTO;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +10,7 @@ public class PostMapper {
     public PostResponseDTO toResponse(PostEntity entity){
         return PostResponseDTO
                 .builder()
-                .idAuthor(entity.getAuthorId())
+                .idAuthor(entity.getUser().getIdUSer())
                 .date(entity.getDate())
                 .title(entity.getTitle())
                 .body(entity.getBody())
@@ -20,7 +18,4 @@ public class PostMapper {
                 .build();
     }
 
-    public PostEntity toEntity(){
-        return null;
-    }
 }

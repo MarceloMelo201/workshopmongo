@@ -1,5 +1,6 @@
 package com.marcelomelo.workshopmongo.service;
 
+import com.marcelomelo.workshopmongo.domain.entities.CommentEntity;
 import com.marcelomelo.workshopmongo.domain.entities.PostEntity;
 import com.marcelomelo.workshopmongo.domain.entities.UserEntity;
 import com.marcelomelo.workshopmongo.dtos.post.PostCreateDTO;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,16 +31,13 @@ public class PostService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private UserService userService;
-
     @Transactional
     public PostResponseDTO createPost(ObjectId idUser, PostCreateDTO dto) {
         UserEntity user = userRepository.findById(idUser).orElseThrow(UserNotFound::new);
 
         PostEntity post = PostEntity
                 .builder()
-                .authorId(user.getIdUSer())
+                .user(user)
                 .date(LocalDate.now())
                 .title(dto.title())
                 .body(dto.body())
@@ -70,4 +67,5 @@ public class PostService {
         PostEntity post = postRepository.findById(idPost).orElseThrow(PostNotFound::new);
         postRepository.delete(post);
     }
+
 }
