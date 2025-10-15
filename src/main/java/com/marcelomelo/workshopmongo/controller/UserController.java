@@ -37,7 +37,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findById(id));
     }
 
-    @PutMapping({"/id"})
+    @PutMapping({"/{id}"})
     public ResponseEntity<UserResponseDTO> updateUser(
             @PathVariable ObjectId id,
             @RequestBody @Valid UserUpdateDTO dto) {
