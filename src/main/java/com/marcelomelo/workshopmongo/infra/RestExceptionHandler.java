@@ -1,5 +1,7 @@
 package com.marcelomelo.workshopmongo.infra;
 
+import com.marcelomelo.workshopmongo.exception.CommentNotFound;
+import com.marcelomelo.workshopmongo.exception.EmailAlreadyExists;
 import com.marcelomelo.workshopmongo.exception.PostNotFound;
 import com.marcelomelo.workshopmongo.exception.UserNotFound;
 import org.springframework.http.HttpStatus;
@@ -14,7 +16,7 @@ import java.util.List;
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({UserNotFound.class, PostNotFound.class})
+    @ExceptionHandler({UserNotFound.class, PostNotFound.class, CommentNotFound.class})
     private ResponseEntity<RestApiError> notFoundHandler(RuntimeException exception){
         RestApiError restApiError = RestApiError
                 .builder()
@@ -26,4 +28,17 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(restApiError, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(EmailAlreadyExists.class
+    )
+    private ResponseEntity<RestApiError> emailAlreadyExistsHandler(RuntimeException exception){
+        RestApiError restApiError = RestApiError.builder()
+                .timeStamp(LocalDateTime.now())
+                .code(HttpStatus.CONFLICT.value())
+                .status(HttpStatus.CONFLICT)
+                .errors(List.of(exception.getMessage()))
+                .build();
+        return new ResponseEntity<>(restApiError, HttpStatus.CONFLICT);
+    }
+
 }

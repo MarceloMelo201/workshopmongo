@@ -19,7 +19,7 @@ public class UserMapper {
     public UserResponseDTO toResponse(UserEntity entity){
         return UserResponseDTO
                 .builder()
-                .idUser(entity.getIdUSer())
+                .idUser(entity.getIdUser())
                 .name(entity.getName())
                 .email(entity.getEmail())
                 .build();

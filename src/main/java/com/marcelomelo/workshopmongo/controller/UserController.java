@@ -3,6 +3,7 @@ package com.marcelomelo.workshopmongo.controller;
 import com.marcelomelo.workshopmongo.domain.entities.UserEntity;
 import com.marcelomelo.workshopmongo.dtos.user.UserCreateDTO;
 import com.marcelomelo.workshopmongo.dtos.user.UserResponseDTO;
+import com.marcelomelo.workshopmongo.dtos.user.UserUpdateDTO;
 import com.marcelomelo.workshopmongo.service.UserService;
 import jakarta.validation.Valid;
 import org.bson.types.ObjectId;
@@ -39,7 +40,7 @@ public class UserController {
     @PutMapping({"/id"})
     public ResponseEntity<UserResponseDTO> updateUser(
             @PathVariable ObjectId id,
-            @RequestBody @Valid UserCreateDTO dto) {
+            @RequestBody @Valid UserUpdateDTO dto) {
 
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateById(id, dto));
     }

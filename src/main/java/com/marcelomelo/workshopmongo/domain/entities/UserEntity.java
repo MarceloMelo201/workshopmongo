@@ -20,7 +20,7 @@ import java.util.List;
 public class UserEntity {
 
     @Id
-    private ObjectId idUSer;
+    private ObjectId idUser;
     private String name;
     private String email;
 

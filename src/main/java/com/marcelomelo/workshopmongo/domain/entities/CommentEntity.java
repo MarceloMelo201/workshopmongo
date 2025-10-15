@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class CommentEntity {
 
     @Id
-    private ObjectId id;
+    private ObjectId idComment;
 
     private String text;
     private LocalDate date;

@@ -10,7 +10,7 @@ public class PostMapper {
     public PostResponseDTO toResponse(PostEntity entity){
         return PostResponseDTO
                 .builder()
-                .idAuthor(entity.getUser().getIdUSer())
+                .idAuthor(entity.getUser().getIdUser())
                 .date(entity.getDate())
                 .title(entity.getTitle())
                 .body(entity.getBody())

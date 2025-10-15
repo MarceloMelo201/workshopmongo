@@ -53,13 +53,43 @@ public class CommentService {
         return commentMapper.toResponse(comment);
     }
 
-    public List<CommentResponseDTO> findAll(){
+    public List<CommentResponseDTO> findAll() {
         return commentRepository.findAll().stream().map(commentMapper::toResponse).toList();
     }
 
-    public CommentResponseDTO findById(ObjectId idComment){
+    public CommentResponseDTO findById(ObjectId idComment) {
         return commentMapper.toResponse(commentRepository.findById(idComment).orElseThrow(CommentNotFound::new));
     }
 
+    @Transactional
+    public CommentResponseDTO updateComment(ObjectId idComment, ObjectId idPost, CommentCreateDTO dto) {
+        PostEntity post = postRepository.findById(idPost).orElseThrow(PostNotFound::new);
+
+        CommentEntity comment = post.getComments()
+                .stream()
+                .filter(c -> c.getIdComment().equals(idComment))
+                .findFirst()
+                .orElseThrow(CommentNotFound::new);
+
+        if (!dto.text().isBlank()) comment.setText(dto.text());
+        comment.setDate(LocalDate.now());
+        postRepository.save(post);
+        return commentMapper.toResponse(comment);
+    }
+
+
+    @Transactional
+    public void deleteComment(ObjectId idComment, ObjectId idPost, CommentCreateDTO dto){
+        PostEntity post = postRepository.findById(idPost).orElseThrow(PostNotFound::new);
+
+        CommentEntity comment = post.getComments()
+                .stream()
+                .filter(c -> c.getIdComment().equals(idComment))
+                .findFirst()
+                .orElseThrow(CommentNotFound::new);
+
+        post.getComments().remove(comment);
+        postRepository.save(post);
+    }
 
 }
