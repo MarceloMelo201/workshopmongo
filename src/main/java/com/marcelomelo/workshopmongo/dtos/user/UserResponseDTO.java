@@ -6,7 +6,7 @@ import org.bson.types.ObjectId;
 @Builder
 public record UserResponseDTO(
 
-        ObjectId idUser,
+        String idUser,
         String name,
         String email
 ) {

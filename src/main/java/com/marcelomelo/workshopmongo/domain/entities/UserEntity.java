@@ -1,6 +1,8 @@
 package com.marcelomelo.workshopmongo.domain.entities;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -20,6 +22,7 @@ import java.util.List;
 public class UserEntity {
 
     @Id
+    @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId idUser;
     private String name;
     private String email;

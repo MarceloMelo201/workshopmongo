@@ -12,7 +12,9 @@ import java.util.List;
 @Builder
 public record PostResponseDTO(
 
-        ObjectId idAuthor,
+        String idAuthor,
+
+        String idPost,
 
         LocalDate date,
 

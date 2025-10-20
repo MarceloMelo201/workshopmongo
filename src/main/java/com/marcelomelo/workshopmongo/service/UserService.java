@@ -12,6 +12,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,8 +30,14 @@ public class UserService {
         return userMapper.toResponse(userRepository.save(user));
     }
 
-    public List<UserEntity> findAll() {
-        return userRepository.findAll();
+    public List<UserResponseDTO> findAll() {
+        List<UserResponseDTO> list = new ArrayList<>();
+        List<UserEntity> userList = userRepository.findAll();
+
+        for(UserEntity u: userList){
+            list.add(userMapper.toResponse(u));
+        }
+        return list;
     }
 
     public UserResponseDTO findById(ObjectId idUSer) {

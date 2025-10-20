@@ -1,14 +1,17 @@
 package com.marcelomelo.workshopmongo.dtos.post;
 
 import jakarta.validation.constraints.NotBlank;
+import org.bson.types.ObjectId;
 
 public record PostCreateDTO(
 
-    @NotBlank
-    String title,
+        ObjectId idUser,
 
-    @NotBlank
-    String body
+        @NotBlank
+        String title,
+
+        @NotBlank
+        String body
 
 ) {
 }

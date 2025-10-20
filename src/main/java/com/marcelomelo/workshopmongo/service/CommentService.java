@@ -2,7 +2,6 @@ package com.marcelomelo.workshopmongo.service;
 
 import com.marcelomelo.workshopmongo.domain.entities.CommentEntity;
 import com.marcelomelo.workshopmongo.domain.entities.PostEntity;
-import com.marcelomelo.workshopmongo.domain.entities.UserEntity;
 import com.marcelomelo.workshopmongo.dtos.comment.AuthorDTO;
 import com.marcelomelo.workshopmongo.dtos.comment.CommentCreateDTO;
 import com.marcelomelo.workshopmongo.dtos.comment.CommentResponseDTO;
@@ -43,7 +42,7 @@ public class CommentService {
         CommentEntity comment = CommentEntity
                 .builder()
                 .idPost(idPost)
-                .author(new AuthorDTO(user.idUser(), user.name()))
+                .author(new AuthorDTO(idUser, user.name()))
                 .date(LocalDate.now())
                 .text(dto.text())
                 .build();

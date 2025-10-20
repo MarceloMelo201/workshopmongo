@@ -43,16 +43,18 @@ class UserServiceTest {
             UserEntity user = getUserEntity(dto);
             UserResponseDTO response = getUserResponse(user);
 
+            when(userRepository.existsByEmail(dto.email())).thenReturn(false);
             when(userMapper.toEntity(dto)).thenReturn(user);
-            when(userRepository.save(user)).thenReturn(user);
+            when(userRepository.save(any(UserEntity.class))).thenReturn(user);
             when(userMapper.toResponse(user)).thenReturn(response);
 
             UserResponseDTO result = userService.createUser(dto);
 
-            assertAll("Verifying user fields.",
-                    () -> assertEquals(user.getIdUser(), result.idUser()),
+            assertAll(
+                    () -> assertEquals(user.getIdUser().toHexString(), result.idUser()),
                     () -> assertEquals(user.getName(), result.name()),
-                    () -> assertEquals(user.getEmail(), result.email()));
+                    () -> assertEquals(user.getEmail(), result.email())
+            );
 
             verify(userRepository, times(1)).save(any(UserEntity.class));
         }
@@ -88,10 +90,12 @@ class UserServiceTest {
 
             UserResponseDTO result = userService.findById(user.getIdUser());
 
-            assertAll("Verifying user fields.",
-                    () -> assertEquals(user.getIdUser(), result.idUser()),
+
+            assertAll(
+                    () -> assertEquals(user.getIdUser().toHexString(), result.idUser()),
                     () -> assertEquals(user.getName(), result.name()),
-                    () -> assertEquals(user.getEmail(), result.email()));
+                    () -> assertEquals(user.getEmail(), result.email())
+            );
 
             verify(userRepository, times(1)).findById(user.getIdUser());
         }
@@ -133,7 +137,7 @@ class UserServiceTest {
 
             UserResponseDTO response = UserResponseDTO
                     .builder()
-                    .idUser(user.getIdUser())
+                    .idUser(user.getIdUser().toHexString())
                     .name(update.name())
                     .email(update.email())
                     .build();
@@ -143,10 +147,12 @@ class UserServiceTest {
 
             UserResponseDTO result = userService.updateById(user.getIdUser(), update);
 
-            assertAll("Verifying user fields.",
-                    () -> assertEquals(user.getIdUser(), result.idUser()),
+
+            assertAll(
+                    () -> assertEquals(user.getIdUser().toHexString(), result.idUser()),
                     () -> assertEquals(user.getName(), result.name()),
-                    () -> assertEquals(user.getEmail(), result.email()));
+                    () -> assertEquals(user.getEmail(), result.email())
+            );
 
             verify(userRepository, times(1)).save(any(UserEntity.class));
         }
@@ -207,13 +213,13 @@ class UserServiceTest {
     }
 
     private UserResponseDTO getUserResponse(UserEntity user) {
-        return UserResponseDTO
-                .builder()
-                .idUser(user.getIdUser())
+        return UserResponseDTO.builder()
+                .idUser(user.getIdUser() != null ? user.getIdUser().toHexString() : "undefined")
                 .name(user.getName())
                 .email(user.getEmail())
                 .build();
     }
+
 
     private UserEntity getUserEntity(UserCreateDTO dto) {
         return UserEntity

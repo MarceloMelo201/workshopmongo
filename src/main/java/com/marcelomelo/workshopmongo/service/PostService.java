@@ -1,6 +1,5 @@
 package com.marcelomelo.workshopmongo.service;
 
-import com.marcelomelo.workshopmongo.domain.entities.CommentEntity;
 import com.marcelomelo.workshopmongo.domain.entities.PostEntity;
 import com.marcelomelo.workshopmongo.domain.entities.UserEntity;
 import com.marcelomelo.workshopmongo.dtos.post.PostCreateDTO;
@@ -32,8 +31,8 @@ public class PostService {
     private UserRepository userRepository;
 
     @Transactional
-    public PostResponseDTO createPost(ObjectId idUser, PostCreateDTO dto) {
-        UserEntity user = userRepository.findById(idUser).orElseThrow(UserNotFound::new);
+    public PostResponseDTO createPost(PostCreateDTO dto) {
+        UserEntity user = userRepository.findById(dto.idUser()).orElseThrow(UserNotFound::new);
 
         PostEntity post = PostEntity
                 .builder()
@@ -54,15 +53,18 @@ public class PostService {
         return postMapper.toResponse(postRepository.findById(idPost).orElseThrow(PostNotFound::new));
     }
 
+    @Transactional
     public PostResponseDTO updatePost(ObjectId idPost, PostUpdateDTO dto) {
         PostEntity post = postRepository.findById(idPost).orElseThrow(PostNotFound::new);
 
         if (!dto.title().isBlank()) post.setTitle(dto.title());
         if (!dto.body().isBlank()) post.setBody(dto.body());
+        post.setDate(LocalDate.now());
 
         return postMapper.toResponse(postRepository.save(post));
     }
 
+    @Transactional
     public void deletePost(ObjectId idPost) {
         PostEntity post = postRepository.findById(idPost).orElseThrow(PostNotFound::new);
         postRepository.delete(post);
