@@ -100,7 +100,7 @@ cd workshop-mongo
 - (Opcional) Suba o MongoDB com Docker:
 
 ````
-docker run -d -p 27017:27017 --name mongo-db mongo
+docker run -d -p 28017:27017 --name mongo-db mongo
 ````
 
 - Execute a aplicação:
