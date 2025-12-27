@@ -10,7 +10,7 @@
 ---
 
 API desenvolvida para gerenciar **usuários**, **posts** e **comentários**, permitindo criar, ler, atualizar e excluir essas entidades.
-O objetivo é fornecer um **primeiro contato com bancos de dados não relacionais**, com foco no **MongoDB**.
+O objetivo é ter um **primeiro contato com bancos de dados não relacionais**, com foco no **MongoDB**.
 
 ---
 
